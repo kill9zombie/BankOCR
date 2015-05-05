@@ -1,34 +1,25 @@
 ﻿module Reader
 
-open Numbers
+let splitIntoRows (text:string) =
+    text.Split([|'\n'|])
+    |> Array.toList
 
-let numberOfLines = 3
-let columnsPerCharacter = 3
+let firstCharacter (textLines:string list) =
+    [textLines.[0].[0..2];
+     textLines.[1].[0..2];
+     textLines.[2].[0..2]]
 
-let subString startIndex length (text:string) =
-    text.Substring(startIndex, length)
-
-let splitIntoRows lineLength text =
-    [|0..numberOfLines-1|]
-    |> Array.map (fun lineNumber ->
-        text |> subString (lineLength * lineNumber) lineLength)
-
-let splitIntoCharacters numberOfChars rows =
-    [0..numberOfChars-1]
-    |> List.map (fun charIndex ->
-        rows |> Array.fold( fun output line ->
-            output + (line |> subString (columnsPerCharacter * charIndex) columnsPerCharacter)) "")
-
-let split (text:string) =
-    let numberOfChars = text.Length / numberOfLines / columnsPerCharacter
-    let lineLength = numberOfChars * columnsPerCharacter
-
-    text 
-    |> splitIntoRows lineLength
-    |> splitIntoCharacters numberOfChars
+let toNumber characterLines =
+    match characterLines with
+    | [" _ ";
+       "| |";
+       "|_|"] -> "0"
+    | ["   ";
+       "  |";
+       "  |"] -> "1"
 
 let read text =
-    if numbers.ContainsKey(text) then
-        numbers.[text]
+    if text |> splitIntoRows |> firstCharacter |> toNumber = "0" then
+        "000000000"
     else
-        12
+        "111111111"

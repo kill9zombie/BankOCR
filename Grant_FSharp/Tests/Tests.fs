@@ -3,24 +3,31 @@
 open Fuchu
 open Reader
 open Swensen.Unquote
-open Numbers
 
-let onetwo = 
-    "    _ " +
-    "  | _|" +
-    "  ||_ "
+let zeroes = 
+    " _  _  _  _  _  _  _  _  _ \n" +
+    "| || || || || || || || || |\n" +
+    "|_||_||_||_||_||_||_||_||_|\n"
+
+let ones = 
+    "                           \n" +
+    "  |  |  |  |  |  |  |  |  |\n" +
+    "  |  |  |  |  |  |  |  |  |\n"
+
+let zeroesAndOnes = 
+    "    _     _     _     _    \n" +
+    "  || |  || |  || |  || |  |\n" +
+    "  ||_|  ||_|  ||_|  ||_|  |\n"
 
 [<Tests>]
 let singleCharTests = 
     testList "single chars" [
-        testCase "one test" (fun _ -> test <@ read one = 1 @>)
-        testCase "two test" (fun _ -> test <@ read two = 2 @>)
+        testCase "zeroes test" (fun _ -> test <@ read zeroes = "000000000" @>)
+        testCase "ones test" (fun _ -> test <@ read ones = "111111111" @>)
     ]
-    
+
 [<Tests>]
-let multipleCharTests = 
-    testList "multiple chars" [
-        //testCase "one-two test" (fun _ -> test <@ read onetwo = 12 @>)
-        testCase "split works" (fun _ -> test <@ split one = [one] @>)
-        testCase "split works more" (fun _ -> test <@ split onetwo = [one; two] @>)
-    ]
+let mixedCharTests = 
+    testList "mixed chars" [
+        testCase "ones and zeroes test" (fun _ -> test <@ read zeroesAndOnes = "0101010101" @>)
+    ]    

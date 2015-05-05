@@ -49,7 +49,6 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="Numbers.fs" />
     <Compile Include="Reader.fs" />
     <Content Include="app.config" />
   </ItemGroup>
