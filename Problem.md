@@ -11,7 +11,7 @@ You work for a bank, which has recently purchased an ingenious machine to assist
 
 Each entry is 3 lines long, and each line has 27 characters. The characters represent an account number written using pipes and underscores. Each account number should have 9 digits, all of which should be in the range 0-9.
 
-Your first task is to write a program that can convert any such valid pipe-based account number to the number it represents.
+Your first task is to write a program that can convert any such valid pipe-based account number to a normal string containing the number it represents, e.g. "123456789".
 
 ### User Story 2
 
@@ -27,31 +27,36 @@ So now you should also write some code that calculates the checksum for a given 
 
 ### User Story 3
 
-Your boss is keen to see your results. He asks you to write out a file of your findings, one for each input file, in this format:
+If there is something wrong with an input number, it would be good to output some information.  Update your code so that:
 
-457508000
-664371495 ERR
-86110??36 ILL
-ie the file has one account number per row. If some characters are illegible, they are replaced by a ?. In the case of a wrong checksum, or illegible number, this is noted in a second column indicating status.
+For a valid input, it just outputs the number (still as a string):  
+    457508000
+
+If the checksum fails, it outputs the number followed by "ERR":  
+    664371495 ERR
+    
+If there are any illegal characters, when output the number with the invalid characterd replaced with "?", followed by "ILL":  
+    86110??36 ILL
 
 ### User Story 4
 
 It turns out that often when a number comes back as ERR or ILL it is because the scanner has failed to pick up on one pipe or underscore for one of the figures. For example
 
-    _  _  _  _  _  _     _ 
-|_||_|| || ||_   |  |  ||_ 
-  | _||_||_||_|  |  |  | _| 
+        _  _  _  _  _  _     _ 
+    |_||_|| || ||_   |  |  ||_ 
+      | _||_||_||_|  |  |  | _| 
+
 The 9 could be an 8 if the scanner had missed one |. Or the 0 could be an 8. Or the 1 could be a 7. The 5 could be a 9 or 6. So your next task is to look at numbers that have come back as ERR or ILL, and try to guess what they should be, by adding or removing just one pipe or underscore. If there is only one possible number with a valid checksum, then use that. If there are several options, the status should be AMB. If you still can't work out what it should be, the status should be reported ILL.
 
 #### Clues
 
 I recommend finding a way to write out 3x3 cells on 3 lines in your code, so they form an identifiable digits. Even if your code actually doesn't represent them like that internally. I'd much rather read
 
-"   " +
-"|_|" +
-"  |"
+    "   " +
+    "|_|" +
+    "  |"
 than
-"   |_|  |" 
+    "   |_|  |"
 anyday.
 
 When this kata was originally presented, the solution made extensive use of recursion. Many people are more comfortable with iteration than recursion. Try this kata both ways.
