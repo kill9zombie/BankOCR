@@ -6,9 +6,9 @@ open Swensen.Unquote
 open Numbers
 
 let onetwo = 
-    "     _ " +
-    "  |  _|" +
-    "  | |_"
+    "    _ " +
+    "  | _|" +
+    "  ||_ "
 
 [<Tests>]
 let singleCharTests = 
