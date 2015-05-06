@@ -11,7 +11,7 @@ You work for a bank, which has recently purchased an ingenious machine to assist
 
 Each entry is 3 lines long, and each line has 27 characters. The characters represent an account number written using pipes and underscores. Each account number should have 9 digits, all of which should be in the range 0-9.
 
-**Note**: You probbaly want a newline at the end of each line of text.
+**Note**: You probaly want a newline at the end of each line of text.
 
 Your first task is to write a program that can convert any such valid pipe-based account number to a normal string containing the number it represents, e.g. "123456789".
 
