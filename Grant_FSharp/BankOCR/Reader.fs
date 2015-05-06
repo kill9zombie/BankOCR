@@ -1,5 +1,38 @@
 ﻿module Reader
 
+let toNumber = function
+    | [" _ ";
+       "| |";
+       "|_|"] -> "0"
+    | ["   ";
+       "  |";
+       "  |"] -> "1"
+    | [" _ ";
+       " _|";
+       "|_ "] -> "2"
+    | [" _ ";
+       " _|";
+       " _|"] -> "3"
+    | ["   ";
+       "|_|";
+       "  |"] -> "4"
+    | [" _ ";
+       "|_ ";
+       " _|"] -> "5"
+    | [" _ ";
+       "|_ ";
+       "|_|"] -> "6"
+    | [" _ ";
+       "  |";
+       "  |"] -> "7"
+    | [" _ ";
+       "|_|";
+       "|_|"] -> "8"
+    | [" _ ";
+       "|_|";
+       " _|"] -> "9"
+    | _ -> ""
+
 let splitIntoRows (text:string) =
     text.Split([|'\n'|])
     |> Array.toList
@@ -17,15 +50,6 @@ let charsFrom n (lines:string list) =
 let rec characters = function
     | ""::_ -> [[];[];[]]
     | lines -> (lines |> firstChars 3)::(lines |> charsFrom 3 |> characters)
-
-let toNumber = function
-    | [" _ ";
-       "| |";
-       "|_|"] -> "0"
-    | ["   ";
-       "  |";
-       "  |"] -> "1"
-    | _ -> ""
 
 let read text =
     text 

@@ -19,6 +19,11 @@ let zeroesAndOnes =
     "  || |  || |  || |  || |  |\n" +
     "  ||_|  ||_|  ||_|  ||_|  |\n"
 
+let manyNumbers = 
+    "    _  _     _  _  _  _  _ \n" +
+    "  | _| _||_||_ |_   ||_||_|\n" +
+    "  ||_  _|  | _||_|  ||_| _|\n"
+
 [<Tests>]
 let singleCharTests = 
     testList "single chars" [
@@ -30,4 +35,5 @@ let singleCharTests =
 let multipleCharTests = 
     testList "mixed chars" [
         testCase "ones and zeroes test" (fun _ -> test <@ read zeroesAndOnes = "101010101" @>)
+        testCase "all numbers" (fun _ -> test <@ read manyNumbers = "123456789" @>)
     ]    
