@@ -189,3 +189,5 @@ _build/
 erl_crash.dump
 *.ez
 
+# NuGet
+packages/
