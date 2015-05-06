@@ -27,7 +27,7 @@ let singleCharTests =
     ]
 
 [<Tests>]
-let mixedCharTests = 
+let multipleCharTests = 
     testList "mixed chars" [
-        testCase "ones and zeroes test" (fun _ -> test <@ read zeroesAndOnes = "0101010101" @>)
+        testCase "ones and zeroes test" (fun _ -> test <@ read zeroesAndOnes = "101010101" @>)
     ]    
