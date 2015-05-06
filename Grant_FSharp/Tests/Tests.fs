@@ -36,4 +36,11 @@ let multipleCharTests =
     testList "mixed chars" [
         testCase "ones and zeroes test" (fun _ -> test <@ read zeroesAndOnes = "101010101" @>)
         testCase "all numbers" (fun _ -> test <@ read manyNumbers = "123456789" @>)
+    ]  
+    
+[<Tests>]
+let checksumTests = 
+    testList "checksums" [
+        testCase "checksum positive case" (fun _ -> test <@ checksumValid "345882865" @>)
+        testCase "checksum negative case" (fun _ -> test <@ not (checksumValid "345882866") @>)
     ]    

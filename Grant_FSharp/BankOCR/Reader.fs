@@ -1,5 +1,7 @@
 ﻿module Reader
 
+open System
+
 let toNumber = function
     | [" _ ";
        "| |";
@@ -57,3 +59,16 @@ let read text =
     |> characters 
     |> List.map toNumber
     |> String.concat ""
+
+let (|Int|) char =
+   match Int32.TryParse(char.ToString()) with
+   | (true,int) -> int 
+   | _ -> 0
+
+let checksumValid (number:string) =
+    let rec checksum index remaining =
+        match remaining with
+        | [] -> 0
+        | Int current::rest -> current * index + checksum (index - 1) rest
+
+    (number |> Seq.toList |> checksum 9) % 11 = 0
