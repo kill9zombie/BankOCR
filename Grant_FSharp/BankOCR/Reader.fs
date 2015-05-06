@@ -33,7 +33,8 @@ let toNumber = function
     | [" _ ";
        "|_|";
        " _|"] -> "9"
-    | _ -> ""
+    | [] -> ""
+    | _ -> "?"
 
 let splitIntoRows (text:string) =
     text.Split([|'\n'|])
@@ -53,13 +54,6 @@ let rec characters = function
     | ""::_ -> [[];[];[]]
     | lines -> (lines |> firstChars 3)::(lines |> charsFrom 3 |> characters)
 
-let read text =
-    text 
-    |> splitIntoRows 
-    |> characters 
-    |> List.map toNumber
-    |> String.concat ""
-
 let (|Int|) char =
    match Int32.TryParse(char.ToString()) with
    | (true,int) -> int 
@@ -72,3 +66,19 @@ let checksumValid (number:string) =
         | Int current::rest -> current * index + checksum (index - 1) rest
 
     (number |> Seq.toList |> checksum 9) % 11 = 0
+
+let read text =
+    
+    let accountNumber = 
+        text 
+        |> splitIntoRows 
+        |> characters 
+        |> List.map toNumber
+        |> String.concat ""
+
+    let extraInfo =
+        if accountNumber.Contains("?") then " ILL"
+        else if not (accountNumber |> checksumValid) then" ERR"
+        else ""
+
+    accountNumber + extraInfo
