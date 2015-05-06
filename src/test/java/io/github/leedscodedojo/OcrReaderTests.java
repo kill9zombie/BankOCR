@@ -31,5 +31,18 @@ public class OcrReaderTests {
 
         assertThat(number, is(2));
     }
+
+    @Test
+    public void read_two_ones(){
+        String inputString =
+                "      \n" +
+                "  |  |\n" +
+                "  |  |\n";
+        OcrReader reader = new OcrReader();
+
+        int number = reader.read(inputString);
+
+        assertThat(number, is(11));
+    }
 }
 
