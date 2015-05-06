@@ -30,34 +30,28 @@ public class BankOcr {
         return -1;
     }
 
-    public String reader(String textToScan){
-        int numOfDigits = 2;
+    public String reader(String textToScan,int numOfDigits){
         int topLine = 0;
         int midLine = numOfDigits * 3;
         int botLine = numOfDigits * 6;
 
-        Pattern p = Pattern.compile(".{3}");
-        Matcher m = p.matcher(textToScan);
-        String resultNum;
-        String result = "";
+        StringBuilder stringBuilder = new StringBuilder();
 
         for(int i = 0; i < numOfDigits; i++){
-            resultNum = "";
-            if(m.find(topLine)){
-                resultNum += m.group();
-                topLine += 3;
-            }
-            if(m.find(midLine)){
-                resultNum += m.group();
-                midLine += 3;
-            }
-            if(m.find(botLine)){
-                resultNum += m.group();
-                botLine += 3;
-            }
-            result += Integer.toString(parser(resultNum));
+            String resultNum = "";
+
+            resultNum += textToScan.substring(topLine, topLine+3);;
+            topLine+=3;
+
+            resultNum += textToScan.substring(midLine, midLine+3);;
+            midLine+=3;
+
+            resultNum += textToScan.substring(botLine, botLine+3);;
+            botLine+=3;
+
+            stringBuilder.append(Integer.toString(parser(resultNum)));
         }
 
-        return result;
+        return stringBuilder.toString();
     }
 }

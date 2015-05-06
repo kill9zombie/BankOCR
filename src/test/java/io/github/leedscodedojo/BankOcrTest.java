@@ -13,7 +13,7 @@ public class BankOcrTest {
                 "  ||_ ";
 
         BankOcr bankOcr = new BankOcr();
-        String actualNumber = bankOcr.reader(textToScan);
+        String actualNumber = bankOcr.reader(textToScan,2);
 
         assertEquals("12", actualNumber);
      }
