@@ -1,59 +1,132 @@
 package io.github.leedscodedojo;
 
 public class BankOcr {
+    private static final String ZERO =
+            " _ \n" +
+            "| |\n" +
+            "|_|\n";
 
-    public interface numConstsants{
+    private static final String ONE =
+            "   \n" +
+            "  |\n" +
+            "  |\n";
 
-        String ONE =
-                    "   " +
-                    "  |" +
-                    "  |";
+    private static final String TWO =
+            " _ \n" +
+            " _|\n" +
+            "|_ \n";
 
-        String TWO =   " _ " +
-                       " _|" +
-                       "|_ ";
+    private static final String THREE =
+            " _ \n" +
+            " _|\n" +
+            " _|\n";
 
-        String THREE =  " _ " +
-                        " _|" +
-                        " _|";
+    private static final String FOUR =
+            "   \n" +
+            "|_|\n" +
+            "  |\n";
+
+    private static final String FIVE =
+            " _ \n" +
+            "|_ \n" +
+            " _|\n";
+
+    private static final String SIX =
+            " _ \n" +
+            "|_ \n" +
+            "|_|\n";
+
+    private static final String SEVEN =
+            " _ \n" +
+            "  |\n" +
+            "  |\n";
+
+    private static final String EIGHT =
+            " _ \n" +
+            "|_|\n" +
+            "|_|\n";
+
+    private static final String NINE =
+            " _ \n" +
+            "|_|\n" +
+            " _|\n";
+
+    public String parseSingleOcrCharacter(String characterToScan) {
+        if (characterToScan.equals(ZERO)) {
+            return "0";
+        }
+        if (characterToScan.equals(ONE)) {
+            return "1";
+        }
+        if (characterToScan.equals(TWO)) {
+            return "2";
+        }
+        if (characterToScan.equals(THREE)) {
+            return "3";
+        }
+        if (characterToScan.equals(FOUR)) {
+            return "4";
+        }
+        if (characterToScan.equals(FIVE)) {
+            return "5";
+        }
+        if (characterToScan.equals(SIX)) {
+            return "6";
+        }
+        if (characterToScan.equals(SEVEN)) {
+            return "7";
+        }
+        if (characterToScan.equals(EIGHT)) {
+            return "8";
+        }
+        if (characterToScan.equals(NINE)) {
+            return "9";
+        }
+
+        System.out.println(String.format("Unknown character:%n%s", characterToScan));
+
+        return "?";
     }
 
-    public int parser(String input){
+    public String read(String textToScan) {
+        String[] lines = getLines(textToScan);
 
-        if (input.equals(numConstsants.ONE)){
-            return 1;
+        StringBuilder scannedCharacters = new StringBuilder();
+
+        for (int i = 0; i < lines[0].length(); i += 3) {
+            String ocrCharacter = createOcrCharacterFromThreeLines(
+                    lines[0].substring(i, i + 3),
+                    lines[1].substring(i, i + 3),
+                    lines[2].substring(i, i + 3));
+
+            String parsedCharacter = parseSingleOcrCharacter(ocrCharacter);
+            scannedCharacters.append(parsedCharacter);
         }
-        if (input.equals(numConstsants.TWO)){
-            return 2;
-        }
-        if (input.equals(numConstsants.THREE)){
-            return 3;
-        }
-        return -1;
+
+        return scannedCharacters.toString();
     }
 
-    public String reader(String textToScan,int numOfDigits){
-        int topLine = 0;
-        int midLine = numOfDigits * 3;
-        int botLine = numOfDigits * 6;
+    private String createOcrCharacterFromThreeLines(String line1, String line2, String line3) {
+        return String.format("%s\n%s\n%s\n", line1, line2, line3);
+    }
 
-        StringBuilder stringBuilder = new StringBuilder();
+    private String[] getLines(String textToScan) {
+        String[] lines = textToScan.split("\n");
+        assertLines(textToScan, lines);
+        return lines;
+    }
 
-        for(int i = 0; i < numOfDigits; i++){
-            String resultNum = "";
-
-            resultNum += textToScan.substring(topLine, topLine+3);;
-            topLine+=3;
-
-            resultNum += textToScan.substring(midLine, midLine+3);;
-            midLine+=3;
-
-            resultNum += textToScan.substring(botLine, botLine+3);;
-            botLine+=3;
-
-            stringBuilder.append(Integer.toString(parser(resultNum)));
+    private void assertLines(String textToScan, String[] lines) {
+        if (lines.length != 3) {
+            throw new RuntimeException("Incorrect number of lines in: " + textToScan);
         }
 
-        return stringBuilder.toString();
+        if (lines[0].length() % 3 != 0) {
+            throw new RuntimeException("Lines lengths must be a multiple of three: " + textToScan);
+        }
+
+        if (lines[0].length() != lines[1].length() || lines[1].length() != lines[2].length()) {
+            throw new RuntimeException("Lines are different lengths: " + textToScan);
+        }
     }
 }
