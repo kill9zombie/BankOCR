@@ -1,19 +1,21 @@
 package io.github.leedscodedojo;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class BankOcr {
 
     public interface numConstsants{
 
-        String ONE =   "     |  |";
+        String ONE =
+                    "   " +
+                    "  |" +
+                    "  |";
 
         String TWO =   " _ " +
                        " _|" +
                        "|_ ";
 
-        String THREE = " _  _| _|";
+        String THREE =  " _ " +
+                        " _|" +
+                        " _|";
     }
 
     public int parser(String input){

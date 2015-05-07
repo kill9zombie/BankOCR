@@ -17,4 +17,18 @@ public class BankOcrTest {
 
         assertEquals("12", actualNumber);
      }
+
+    @Test
+    public void can_parse_1234() {
+        // TODO
+//        String textToScan =
+//                "    _  _    " +
+//                "  | _| _||_|" +
+//                "  ||_  _|  |";
+//
+//        BankOcr bankOcr = new BankOcr();
+//        String actualNumber = bankOcr.reader(textToScan,2);
+//
+//        assertEquals("1234", actualNumber);
+    }
 }
