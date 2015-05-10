@@ -17,7 +17,7 @@ defmodule Bank do
 
   """
   def line(str) do
-    Enum.reverse(_line(String.split(str, "\n"), []))
+    _line(String.split(str, "\n"), []) |> Enum.reverse
   end
 
   # Last three chars, so return the last state (ie, all the parsed characters so far: [0,3,4])
@@ -37,7 +37,36 @@ defmodule Bank do
     # We've got more characters, so carry on.
     _line([tail_one, tail_two, tail_three], state_out)
   end
+
+  @doc ~S"""
+  User Story 2
+
+  Valiate a valid bank account number
+
+  Example:
+      iex> Bank.valid_account_number?([3,4,5,8,8,2,8,6,5])
+      iex> true
+  """
+  def valid_account_number?(account_no) do
+    case _checksum(Enum.reverse(account_no), %{}) |> rem(11) do
+      0 -> true
+      _ -> false
+    end
+  end
+
+  defp _checksum([], state), do: state[:acc]
+  defp _checksum([head | tail] = number, state) do
+    case length(number) do
+      9 -> _checksum(tail, %{counter: 2, acc: head})
+      _ ->
+        sum = state[:counter] * head
+        _checksum(tail, %{counter: state[:counter] + 1, acc: state[:acc] + sum})
+    end
+  end
     
+    
+
+
   @doc ~S"""
   Parse a single digit.
 
