@@ -63,6 +63,23 @@ defmodule Bank do
         _checksum(tail, %{counter: state[:counter] + 1, acc: state[:acc] + sum})
     end
   end
+
+  @doc ~S"""
+  User story 3
+  """
+  def account(str) do
+    line(str) |> _check_account
+  end
+  defp _check_account(account_no_list) do
+    case "?" in account_no_list do
+      true -> Enum.join(account_no_list) <> " ILL"
+      _ ->
+        case valid_account_number?(account_no_list) do
+          true -> Enum.join(account_no_list, "")
+          false -> Enum.join(account_no_list, "") <> " ERR"
+        end
+    end
+  end
     
     
 
@@ -91,14 +108,14 @@ defmodule Bank do
 
   def parse("""
                
-             |
-             |
+             | 
+             | 
             """), do: 1
 
   def parse("""
              _ 
              _|
-            |_
+            |_ 
             """), do: 2
 
   def parse("""
@@ -115,13 +132,13 @@ defmodule Bank do
 
   def parse("""
              _ 
-            |_
+            |_ 
              _|
             """), do: 5
 
   def parse("""
              _ 
-            |_
+            |_ 
             |_|
             """), do: 6
 
@@ -142,5 +159,7 @@ defmodule Bank do
             |_|
               |
             """), do: 9
+
+  def parse(_), do: "?"
 
 end
